@@ -90,7 +90,7 @@ Storage `covers`: public read; insert/update/delete only `is_owner()`.
 - **Check:** create → appears on home; private hidden when logged out; edit keeps slug.
 
 ## Phase 6 — Deploy
-- [ ] `/api/keepalive` (cheap select) + `vercel.json` daily cron.
-- [ ] README: what it is, creator credit, setup steps.
+- [x] `/api/keepalive` (cheap select) + `vercel.json` daily cron.
+- [x] README: what it is, creator credit, setup steps.
 - [ ] ⛔ Liz: import the repo in Vercel, add the two env vars, add the vercel.app URL to Supabase redirect URLs.
 - **Check:** production login + create works.
