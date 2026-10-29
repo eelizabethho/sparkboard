@@ -3,8 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cache, Suspense } from "react";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { Markdown } from "@/components/markdown";
 import { Badge } from "@/components/ui/badge";
 import { gradientFor } from "@/lib/gradient";
 import { getIdea, isOwner } from "@/lib/ideas";
@@ -68,7 +67,7 @@ async function Detail({ params }: { params: PageProps<"/ideas/[slug]">["params"]
         </ul>
       )}
       <div className="prose-idea mt-8">
-        <Markdown remarkPlugins={[remarkGfm]}>{idea.body}</Markdown>
+        <Markdown>{idea.body}</Markdown>
       </div>
       <p className="mt-10 text-sm text-muted-foreground">
         Created {fmt(idea.created_at)} · Updated {fmt(idea.updated_at)}

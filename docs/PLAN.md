@@ -83,10 +83,10 @@ Storage `covers`: public read; insert/update/delete only `is_owner()`.
 - [x] Owner sees Edit button.
 
 ## Phase 5 — Login + editor
-- [ ] `/login`: email field → `signInWithOtp({ shouldCreateUser: false })` → `/auth/callback` route exchanges the code.
-- [ ] Owner-only `/new` and `/ideas/[slug]/edit`: all fields, category combobox, tags input, links list, private switch (default on), cover upload (≤5 MB, image/*), markdown textarea with live preview tab, delete with confirm.
-- [ ] Server actions validate input and rely on RLS; `revalidatePath` after save; Sonner toasts.
-- [ ] Header shows "+ New" and Log out only to the owner.
+- [x] `/login`: email field → `signInWithOtp({ shouldCreateUser: false })` → `/auth/callback` route exchanges the code.
+- [x] Owner-only `/new` and `/ideas/[slug]/edit`: all fields, category combobox, tags input, links list, private switch (default on), cover upload (≤5 MB, image/*), markdown textarea with live preview tab, delete with confirm.
+- [x] Server actions validate input and rely on RLS; `revalidatePath` after save; Sonner toasts.
+- [x] Header shows "+ New" and Log out only to the owner.
 - **Check:** create → appears on home; private hidden when logged out; edit keeps slug.
 
 ## Phase 6 — Deploy
