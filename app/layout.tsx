@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import "./globals.css";
+import { OwnerNav } from "@/components/owner-nav";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Toaster } from "@/components/ui/sonner";
@@ -21,7 +23,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <Link href="/" className="text-xl font-semibold tracking-[-0.02em]">
                 Sparkboard
               </Link>
-              <ThemeToggle />
+              <div className="flex items-center gap-2">
+                <Suspense fallback={null}>
+                  <OwnerNav />
+                </Suspense>
+                <ThemeToggle />
+              </div>
             </div>
           </header>
           <main className="mx-auto w-full max-w-6xl flex-1 px-4 pb-16 sm:px-6">
