@@ -19,8 +19,8 @@ export async function signIn(_prev: LoginState, formData: FormData): Promise<Log
     email,
     options: { shouldCreateUser: false, emailRedirectTo: `${origin}/auth/callback` },
   });
-  // Same answer whether or not the email exists, so nothing leaks.
-  return { status: error ? "error" : "sent" };
+  // Unknown emails also error (shouldCreateUser: false); answer "sent" so /login can't confirm the owner's email.
+  return { status: error?.status === 429 ? "error" : "sent" };
 }
 
 export async function signOut() {

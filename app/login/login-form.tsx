@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 export function LoginForm({ failed }: { failed: boolean }) {
   const [state, action, pending] = useActionState<LoginState, FormData>(signIn, { status: failed ? "error" : "idle" });
   if (state.status === "sent") {
-    return <p className="rounded-2xl bg-card p-6">Check your email for a sign-in link.</p>;
+    return <p className="rounded-2xl bg-card p-6">Check your email for a sign-in link. Open it in this same browser.</p>;
   }
   return (
     <form action={action} className="space-y-3">
