@@ -148,3 +148,23 @@ h1, h2, h3 {
     backdrop-filter: none !important;
   }
 }
+
+.prose-idea { font-size: 1.0625rem; line-height: 1.7; }
+.prose-idea > * + * { margin-top: 1.1em; }
+.prose-idea h1, .prose-idea h2, .prose-idea h3 { font-weight: 600; margin-top: 1.8em; }
+.prose-idea h1 { font-size: 1.875rem; }
+.prose-idea h2 { font-size: 1.5rem; }
+.prose-idea h3 { font-size: 1.25rem; }
+.prose-idea a { text-decoration: underline; text-underline-offset: 3px; }
+.prose-idea ul, .prose-idea ol { padding-left: 1.5em; }
+.prose-idea ul { list-style: disc; }
+.prose-idea ol { list-style: decimal; }
+.prose-idea li + li { margin-top: 0.3em; }
+.prose-idea blockquote { border-left: 3px solid var(--border); padding-left: 1em; color: var(--muted-foreground); }
+.prose-idea code { font-family: var(--font-mono); font-size: 0.9em; background: var(--muted); padding: 0.15em 0.4em; border-radius: 0.4em; }
+.prose-idea pre { background: var(--card); padding: 1em; border-radius: 1rem; overflow-x: auto; }
+.prose-idea pre code { background: none; padding: 0; }
+.prose-idea img { max-width: 100%; border-radius: 1.5rem; }
+.prose-idea hr { border-color: var(--border); }
+.prose-idea table { display: block; overflow-x: auto; border-collapse: collapse; }
+.prose-idea th, .prose-idea td { border: 1px solid var(--border); padding: 0.4em 0.8em; }

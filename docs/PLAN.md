@@ -72,15 +72,15 @@ Storage `covers`: public read; insert/update/delete only `is_owner()`.
 - **Check:** build passes; anon select returns only public rows.
 
 ## Phase 3 — Home
-- [ ] Server page loads visible ideas; client component does pills / search (title, pitch, tags) / sort.
-- [ ] Card: cover or gradient, category chip, status, title, pitch, ↗ button → detail.
-- [ ] Empty state.
+- [x] Server page loads visible ideas; client component does pills / search (title, pitch, tags) / sort.
+- [x] Card: cover or gradient, category chip, status, title, pitch, ↗ button → detail.
+- [x] Empty state.
 - **Check:** filter, search, sort work; layout at 375px.
 
 ## Phase 4 — Detail
-- [ ] `/ideas/[slug]`: cover, title, pitch, status, category, tags, links, markdown body (react-markdown + remark-gfm, no raw HTML), dates.
-- [ ] 404 for missing or private-to-visitor ideas. `generateMetadata` OG tags.
-- [ ] Owner sees Edit button.
+- [x] `/ideas/[slug]`: cover, title, pitch, status, category, tags, links, markdown body (react-markdown + remark-gfm, no raw HTML), dates.
+- [x] 404 for missing or private-to-visitor ideas. `generateMetadata` OG tags.
+- [x] Owner sees Edit button.
 
 ## Phase 5 — Login + editor
 - [ ] `/login`: email field → `signInWithOtp({ shouldCreateUser: false })` → `/auth/callback` route exchanges the code.
