@@ -58,10 +58,10 @@ Storage `covers`: public read; insert/update/delete only `is_owner()`.
 
 ## Phase 1 — Scaffold + Apple theme
 - [x] `create-next-app` (TS, Tailwind, ESLint, App Router).
-- [ ] shadcn/ui init (neutral), add: button, input, textarea, badge, select, command/popover (combobox), dropdown-menu, switch, label, sonner.
-- [ ] Theme tokens in `app/globals.css` (light + dark, values above); system font; `next-themes` toggle.
-- [ ] Layout shell: sticky frosted header with "Sparkboard" wordmark + theme toggle; footer "Made by Liz".
-- [ ] Static mock home with 6 hard-coded cards to prove the look (masonry via CSS columns, gradient fallback util).
+- [x] shadcn/ui init (neutral), add: button, input, textarea, badge, select, command/popover (combobox), dropdown-menu, switch, label, sonner.
+- [x] Theme tokens in `app/globals.css` (light + dark, values above); system font; `next-themes` toggle.
+- [x] Layout shell: sticky frosted header with "Sparkboard" wordmark + theme toggle; footer "Made by Liz".
+- [x] Static mock home with 6 hard-coded cards to prove the look (masonry via CSS columns, gradient fallback util).
 - **Check:** `npm run lint && npm run build`; screenshot at desktop + 375px wide in light + dark.
 
 ## Phase 2 — Supabase
