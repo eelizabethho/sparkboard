@@ -9,8 +9,9 @@ Built with Next.js, Tailwind, shadcn/ui and Supabase. See [docs/PLAN.md](docs/PL
 ## Setup
 
 1. Create a Supabase project. In Auth, turn off sign-ups, add your own user, and add `http://localhost:3000/**` to the redirect URLs.
-2. Open [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql), replace `OWNER_UUID` with your user's UUID, and run it in the Supabase SQL editor.
-3. Run locally:
+2. In Auth → Emails → Magic Link, set the link to `{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=email` so links work in any browser.
+3. Open [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql), replace `OWNER_UUID` with your user's UUID, and run it in the Supabase SQL editor.
+4. Run locally:
 
 ```bash
 npm install
@@ -18,7 +19,7 @@ cp .env.example .env.local   # fill in your Supabase URL and anon key
 npm run dev
 ```
 
-4. Log in at `/login` (it isn't linked anywhere) to write ideas.
+5. Log in at `/login` (it isn't linked anywhere) to write ideas.
 
 ## Deploy
 
