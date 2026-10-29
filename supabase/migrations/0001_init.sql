@@ -1,5 +1,5 @@
 -- Sparkboard init. Paste into the Supabase SQL editor.
--- BEFORE RUNNING: replace OWNER_UUID below with your auth user's UUID (Auth -> Users).
+-- is_owner() holds Liz's auth user id (not secret).
 -- Re-running is safe.
 
 create table if not exists public.ideas (
@@ -32,7 +32,7 @@ create trigger ideas_set_updated_at before update on public.ideas
 
 create or replace function public.is_owner() returns boolean
 language sql stable as $$
-  select auth.uid() = 'OWNER_UUID'::uuid
+  select auth.uid() = 'baf06dce-240c-4bcd-a9a2-6825c1eef09b'::uuid
 $$;
 
 alter table public.ideas enable row level security;
