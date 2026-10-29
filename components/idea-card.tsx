@@ -6,7 +6,7 @@ import type { Idea } from "@/lib/ideas";
 
 export type IdeaCardData = Pick<
   Idea,
-  "slug" | "title" | "pitch" | "status" | "category" | "cover_url"
+  "slug" | "title" | "pitch" | "status" | "category" | "cover_url" | "is_private"
 >;
 
 export function IdeaCard({ idea }: { idea: IdeaCardData }) {
@@ -30,6 +30,7 @@ export function IdeaCard({ idea }: { idea: IdeaCardData }) {
         <div className="flex items-center gap-2">
           {idea.category && <Badge variant="secondary">{idea.category}</Badge>}
           <span className="text-xs capitalize text-muted-foreground">{idea.status}</span>
+          {idea.is_private && <Badge variant="outline">Private</Badge>}
         </div>
         <h2 className="text-xl font-semibold">{idea.title}</h2>
         <p className="truncate text-sm text-muted-foreground">{idea.pitch}</p>
