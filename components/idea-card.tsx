@@ -2,16 +2,12 @@ import { ArrowUpRightIcon } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { gradientFor } from "@/lib/gradient";
+import type { Idea } from "@/lib/ideas";
 
-// Minimal local type; Phase 2 replaces it with the real Idea type.
-export type IdeaCardData = {
-  slug: string;
-  title: string;
-  pitch: string;
-  status: string;
-  category: string | null;
-  cover_url: string | null;
-};
+export type IdeaCardData = Pick<
+  Idea,
+  "slug" | "title" | "pitch" | "status" | "category" | "cover_url"
+>;
 
 export function IdeaCard({ idea }: { idea: IdeaCardData }) {
   return (
