@@ -65,9 +65,9 @@ Storage `covers`: public read; insert/update/delete only `is_owner()`.
 - **Check:** `npm run lint && npm run build`; screenshot at desktop + 375px wide in light + dark.
 
 ## Phase 2 — Supabase
-- [ ] `supabase/migrations/0001_init.sql`: table, trigger, `is_owner()`, RLS, `covers` bucket + policies (OWNER_UUID placeholder).
-- [ ] `lib/supabase/{server,client}.ts` via `@supabase/ssr`; session refresh per the installed Next docs (middleware/proxy).
-- [ ] `lib/ideas.ts`: `Idea` type, `listIdeas()`, `getIdea(slug)`, `isOwner()`.
+- [x] `supabase/migrations/0001_init.sql`: table, trigger, `is_owner()`, RLS, `covers` bucket + policies (OWNER_UUID placeholder).
+- [x] `lib/supabase/{server,client}.ts` via `@supabase/ssr`; session refresh per the installed Next docs (middleware/proxy).
+- [x] `lib/ideas.ts`: `Idea` type, `listIdeas()`, `getIdea(slug)`, `isOwner()`.
 - [ ] ⛔ Liz runs the SQL in the Supabase SQL editor with her UUID filled in.
 - **Check:** build passes; anon select returns only public rows.
 
