@@ -12,6 +12,6 @@ export async function BlocksHtml({ blocks }: { blocks: unknown[] }) {
   } catch (e) {
     // TEMPORARY diagnostics: surface the production-only failure. Remove once fixed.
     const err = e as Error;
-    return <template data-blocks-error={`${err.name}: ${err.message}\n${err.stack?.split("\n").slice(0, 6).join("\n")}`} />;
+    return <template data-blocks-error={`node ${process.version} | ${err.name}: ${err.message}\n${err.stack?.split("\n").slice(0, 6).join("\n")}`} />;
   }
 }
