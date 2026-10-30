@@ -215,7 +215,7 @@ export function IdeaEditor({ idea, categories }: { idea?: Idea; categories: stri
             onPointerCancel={() => (drag.current = null)}
             onKeyDown={onCoverKey}
             style={{ objectPosition: `center ${coverY}%` }}
-            className={`aspect-[16/9] w-full rounded-3xl object-cover ${repositioning ? "cursor-grab touch-none select-none outline-none ring-2 ring-primary active:cursor-grabbing" : ""}`}
+            className={`aspect-[16/9] w-full object-cover ${repositioning ? "cursor-grab touch-none select-none outline-none ring-2 ring-primary active:cursor-grabbing" : ""}`}
           />
           {repositioning && (
             <span className="pointer-events-none absolute top-3 left-1/2 -translate-x-1/2 rounded-full bg-background/80 px-3 py-1 text-xs backdrop-blur-[20px]">

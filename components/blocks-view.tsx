@@ -123,7 +123,7 @@ function Media({ b }: { b: Block }) {
       // eslint-disable-next-line @next/next/no-img-element
       <img src={url} alt={typeof p.caption === "string" && p.caption ? p.caption : name} style={{ width }} className={`max-w-full ${align}`} />
     ) : b.type === "video" ? (
-      <video src={url} controls style={{ width }} className={`max-w-full rounded-2xl ${align}`} />
+      <video src={url} controls style={{ width }} className={`max-w-full ${align}`} />
     ) : b.type === "audio" ? (
       <audio src={url} controls className="w-full" />
     ) : (

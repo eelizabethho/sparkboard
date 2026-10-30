@@ -11,7 +11,7 @@ export type IdeaCardData = Pick<
 
 export function IdeaCard({ idea }: { idea: IdeaCardData }) {
   return (
-    <article className="group relative mb-6 break-inside-avoid overflow-hidden rounded-3xl bg-card text-card-foreground shadow-sm transition duration-200 ease-out hover:-translate-y-1 hover:shadow-lg active:scale-[0.97] has-[a:focus-visible]:ring-[3px] has-[a:focus-visible]:ring-ring">
+    <article className="group relative mb-6 break-inside-avoid overflow-hidden bg-card text-card-foreground shadow-sm transition duration-200 ease-out hover:-translate-y-1 hover:shadow-lg active:scale-[0.97] has-[a:focus-visible]:ring-[3px] has-[a:focus-visible]:ring-ring">
       {idea.cover_url ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img

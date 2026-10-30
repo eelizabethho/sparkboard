@@ -34,10 +34,10 @@ async function Detail({ params }: { params: PageProps<"/ideas/[slug]">["params"]
           src={idea.cover_url}
           alt={`Cover for ${idea.title}`}
           style={{ objectPosition: `center ${idea.cover_y}%` }}
-          className="aspect-[16/9] w-full rounded-3xl object-cover"
+          className="aspect-[16/9] w-full object-cover"
         />
       ) : (
-        <div aria-hidden className="aspect-[16/9] w-full rounded-3xl" style={{ background: gradientFor(idea.title) }} />
+        <div aria-hidden className="aspect-[16/9] w-full" style={{ background: gradientFor(idea.title) }} />
       )}
       <div className="mt-8 flex flex-wrap items-center gap-2">
         {idea.category && <Badge variant="secondary">{idea.category}</Badge>}
@@ -88,7 +88,7 @@ export default function IdeaPage(props: PageProps<"/ideas/[slug]">) {
       <Link href="/" className="inline-flex items-center gap-1 py-6 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeftIcon className="size-4" /> All ideas
       </Link>
-      <Suspense fallback={<div className="mx-auto aspect-[16/9] max-w-3xl animate-pulse rounded-3xl bg-card" />}>
+      <Suspense fallback={<div className="mx-auto aspect-[16/9] max-w-3xl animate-pulse bg-card" />}>
         <Detail params={props.params} />
       </Suspense>
     </>

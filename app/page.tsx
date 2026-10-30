@@ -18,7 +18,7 @@ export default function Home() {
         fallback={
           <div className="columns-1 gap-6 sm:columns-2 lg:columns-3" aria-busy>
             {[0, 1, 2].map((i) => (
-              <div key={i} className="mb-6 aspect-[4/5] animate-pulse rounded-3xl bg-card" />
+              <div key={i} className="mb-6 aspect-[4/5] animate-pulse bg-card" />
             ))}
           </div>
         }

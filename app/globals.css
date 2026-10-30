@@ -166,7 +166,7 @@ h1, h2, h3 {
 .prose-idea code { font-family: var(--font-mono); font-size: 0.9em; background: var(--muted); padding: 0.15em 0.4em; border-radius: 0.4em; }
 .prose-idea pre { background: var(--card); padding: 1em; border-radius: 1rem; overflow-x: auto; }
 .prose-idea pre code { background: none; padding: 0; }
-.prose-idea img { max-width: 100%; border-radius: 1.5rem; }
+.prose-idea img { max-width: 100%; }
 .prose-idea hr { border-color: var(--border); }
 .prose-idea table { display: block; overflow-x: auto; border-collapse: collapse; }
 .prose-idea th, .prose-idea td { border: 1px solid var(--border); padding: 0.4em 0.8em; }
