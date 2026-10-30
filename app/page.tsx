@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { IdeaBoard } from "@/components/idea-board";
+import { OceanHero } from "@/components/ocean-hero";
 import { listIdeas } from "@/lib/ideas";
 
 async function Board() {
@@ -9,7 +10,10 @@ async function Board() {
 export default function Home() {
   return (
     <>
-      <h1 className="py-8 text-5xl font-semibold sm:text-6xl">AI ideas, from spark to shipped.</h1>
+      <OceanHero />
+      <h2 id="ideas" className="scroll-mt-16 py-8 text-4xl font-semibold sm:text-5xl">
+        Ideas
+      </h2>
       <Suspense
         fallback={
           <div className="columns-1 gap-6 sm:columns-2 lg:columns-3" aria-busy>

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" suppressHydrationWarning className="h-full antialiased">
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-x-clip">
         <ThemeProvider>
           <header className="frosted sticky top-0 z-40 bg-background/70 backdrop-blur-[20px] backdrop-saturate-[180%] [mask-image:linear-gradient(to_bottom,#000_70%,transparent)]">
             <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">

@@ -6,6 +6,10 @@ Created by **Liz** ([@eelizabethho](https://github.com/eelizabethho)).
 
 Built with Next.js, Tailwind, shadcn/ui and Supabase. See [docs/PLAN.md](docs/PLAN.md) for the plan.
 
+## Credits
+
+The landing-page ocean is [ascii-sharks](https://github.com/stackedlol/ascii-sharks) by drewdi (MIT), vendored in [`vendor/ascii-sharks`](vendor/ascii-sharks) at `a0074c16a106` with a light palette added.
+
 ## Setup
 
 1. Create a Supabase project. In Auth, turn off sign-ups, add your own user, and add `http://localhost:3000/**` to the redirect URLs.
