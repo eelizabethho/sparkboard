@@ -137,7 +137,8 @@ export class World {
   seed() {
     const { width: W, height: H } = this;
     const minSide = Math.min(W, H);
-    const baseLength = clamp(minSide * 0.44, 170, 430);
+    // Sparkboard: bigger sharks (upstream: minSide * 0.44, 170–430) so the silhouette reads at a glance.
+    const baseLength = clamp(minSide * 0.62, 200, 620);
     const sharkCount = this.sharkSpecs.length;
 
     this.sharks = [];
@@ -524,6 +525,32 @@ export class World {
         }
       }
 
+      // Sparkboard addition: sharks shy away from the cursor, steering off
+      // the body point nearest to it and putting on a burst of speed.
+      let spooked = 0;
+      if (this.pointer.active) {
+        let best = Infinity;
+        let bx = 0;
+        let by = 0;
+        for (let k = 0; k < SHARK_NODES; k += 2) {
+          const ox = nodes[k * 2] - this.pointer.x;
+          const oy = nodes[k * 2 + 1] - this.pointer.y;
+          const d = Math.hypot(ox, oy);
+          if (d < best) {
+            best = d;
+            bx = ox;
+            by = oy;
+          }
+        }
+        const range = L * 0.3 + 150;
+        if (best < range && best > 1e-3) {
+          spooked = 1 - best / range;
+          const w = spooked * 7;
+          dx += (bx / best) * w;
+          dy += (by / best) * w;
+        }
+      }
+
       // Keep the headline mostly clear: a soft elliptical no-swim zone.
       const ex = (hx - cxW) / (W * 0.3);
       const ey = (hy - cyW) / (H * 0.16);
@@ -549,15 +576,15 @@ export class World {
 
       const desired = Math.atan2(dy, dx);
       // Sharks can't pivot on the spot: the turning circle grows with speed.
-      const agility = Math.min(hunting ? 1.7 + closing : 0.8, sh.speed / (L * 0.22));
+      const agility = Math.min(hunting || spooked > 0 ? 1.7 + closing + spooked : 0.8, sh.speed / (L * 0.22));
       const maxTurn = agility * dt;
       const turned = clamp(angleDiff(sh.heading, desired), -maxTurn, maxTurn);
       sh.heading += turned;
       sh.turn += (turned / dt - sh.turn) * Math.min(1, dt * 3);
 
       const cruise = 30 + L * 0.04;
-      const targetSpeed = hunting ? cruise * (1.45 + closing * 1.5) : cruise;
-      sh.speed += (targetSpeed - sh.speed) * Math.min(1, dt * 1.1);
+      const targetSpeed = (hunting ? cruise * (1.45 + closing * 1.5) : cruise) * (1 + spooked * 2);
+      sh.speed += (targetSpeed - sh.speed) * Math.min(1, dt * (1.1 + spooked * 3));
       sh.phase += dt * (2 + sh.speed / 24);
 
       nodes[0] += Math.cos(sh.heading) * sh.speed * dt;

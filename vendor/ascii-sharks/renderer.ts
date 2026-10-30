@@ -23,17 +23,6 @@ const DOT_RGB: [number, number, number][] = [
 const DOT_BASE_ALPHA = [1, 1, 1, 1, 1];
 const WAKE = DOT_RGB.length - 1;
 
-// Sparkboard addition: a light palette for #f5f5f7 pages. "dark" is the original look.
-export type OceanTheme = "light" | "dark";
-// sharkFloor lifts the darkest shark blocks so they read as soft grey on a light page.
-const PALETTES: Record<
-  OceanTheme,
-  { bg: string; grid: string; fish: string; wake: [number, number, number]; sharkFloor: number }
-> = {
-  dark: { bg: "#000", grid: "rgba(255,255,255,0.055)", fish: "230,238,255", wake: [110, 230, 255], sharkFloor: 0 },
-  light: { bg: "#f5f5f7", grid: "rgba(0,0,0,0.05)", fish: "29,29,31", wake: [80, 120, 190], sharkFloor: 110 },
-};
-
 const ACCENTS = ["#e0892c", "#e03a32", "#b44ae0", "#33c8cc", "#3cb54a", "#3150e8", "#d9c14a"];
 
 // Sparse glyphs on bright skin, dense glyphs in shadow, so the texture
@@ -259,12 +248,9 @@ function inTriangle(
 }
 
 /** Visible dark-grey cell grid, snapped to device pixels. Shared with the sidebar backdrop. */
-export function paintGrid(
-  g: CanvasRenderingContext2D, W: number, H: number, cw: number, ch: number, dpr: number,
-  stroke = PALETTES.dark.grid,
-) {
+export function paintGrid(g: CanvasRenderingContext2D, W: number, H: number, cw: number, ch: number, dpr: number) {
   g.setTransform(1, 0, 0, 1, 0, 0);
-  g.strokeStyle = stroke;
+  g.strokeStyle = "rgba(255,255,255,0.055)";
   g.lineWidth = 1;
   g.beginPath();
   for (let c = 0; c <= Math.ceil(W / cw); c++) {
@@ -329,28 +315,16 @@ export class AsciiRenderer {
   private frameId = 0;
   /** Fish cells bucketed by brightness, so each bucket is one fillStyle. */
   private fishBuckets: number[][] = FISH_ALPHAS.map(() => []);
-  private fishStyles: string[] = [];
-  private palette = PALETTES.dark;
+  private fishStyles = FISH_ALPHAS.map((a) => `rgba(230,238,255,${a})`);
 
   constructor(private canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) throw new Error("2D canvas unavailable");
     this.ctx = ctx;
     this.bg = document.createElement("canvas");
-    this.buildStyles();
-  }
 
-  setTheme(theme: OceanTheme) {
-    this.palette = PALETTES[theme];
-    this.buildStyles();
-    if (this.cols) this.paintBackground();
-  }
-
-  private buildStyles() {
-    this.fishStyles = FISH_ALPHAS.map((a) => `rgba(${this.palette.fish},${a})`);
-    this.dotStyles = [];
     for (let c = 0; c < DOT_RGB.length; c++) {
-      const [r, g, b] = c === WAKE ? this.palette.wake : DOT_RGB[c];
+      const [r, g, b] = DOT_RGB[c];
       for (let l = 0; l < ALPHA_LEVELS; l++) {
         const a = (DOT_BASE_ALPHA[c] * (l + 1)) / ALPHA_LEVELS;
         this.dotStyles.push(`rgba(${r},${g},${b},${a.toFixed(3)})`);
@@ -421,9 +395,9 @@ export class AsciiRenderer {
     if (!g) return;
     const { width: W, height: H, dpr, cw, ch } = this;
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
-    g.fillStyle = this.palette.bg;
+    g.fillStyle = "#000";
     g.fillRect(0, 0, W, H);
-    paintGrid(g, W, H, cw, ch, dpr, this.palette.grid);
+    paintGrid(g, W, H, cw, ch, dpr);
   }
 
   render(world: World, dt: number) {
@@ -827,7 +801,6 @@ export class AsciiRenderer {
         glyph = SKIN_RAMP[clamp(Math.floor((1 - shade) * 8.99) + jitter, 0, SKIN_RAMP.length - 1)];
       }
       level *= dim;
-      level = this.palette.sharkFloor + level * (1 - this.palette.sharkFloor / 255);
       // Tinted per species; the classic tint is a cool blue-grey, like a back seen through deep water.
       ctx.fillStyle = `rgb(${Math.min(255, Math.round(level * tr))},${Math.min(255, Math.round(level * tg))},${Math.min(255, Math.round(level * tb + 4))})`;
       ctx.fillRect(x + 1, y + 1, cw - 1, ch - 1);

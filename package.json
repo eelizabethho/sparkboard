@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --import jiti/register --test lib/*.test.ts vendor/ascii-sharks/*.test.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

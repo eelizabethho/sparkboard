@@ -1,4 +1,4 @@
-import { AsciiRenderer, type OceanTheme } from "./renderer";
+import { AsciiRenderer } from "./renderer";
 import { World, type SharkSpec } from "./world";
 
 const STEP = 1 / 60;
@@ -46,12 +46,6 @@ export class OceanEngine {
       if (!this.disposed && this.reducedMotion.matches) this.drawStill();
     });
     this.schedule();
-  }
-
-  /** Sparkboard addition: swap palettes without restarting the simulation. */
-  setTheme(theme: OceanTheme) {
-    this.renderer.setTheme(theme);
-    if (this.reducedMotion.matches) this.drawStill();
   }
 
   destroy() {

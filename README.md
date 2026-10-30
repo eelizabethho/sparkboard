@@ -8,7 +8,7 @@ Built with Next.js, Tailwind, shadcn/ui and Supabase. See [docs/PLAN.md](docs/PL
 
 ## Credits
 
-The landing-page ocean is [ascii-sharks](https://github.com/stackedlol/ascii-sharks) by drewdi (MIT), vendored in [`vendor/ascii-sharks`](vendor/ascii-sharks) at `a0074c16a106` with a light palette added.
+The landing-page ocean is [ascii-sharks](https://github.com/stackedlol/ascii-sharks) by drewdi (MIT), vendored in [`vendor/ascii-sharks`](vendor/ascii-sharks) at `a0074c16a106`. Sparkboard changes (marked in `world.ts`): bigger sharks, and sharks flee the cursor. Light mode inverts the canvas with CSS.
 
 ## Setup
 
