@@ -3,9 +3,9 @@
 import { useMemo, useState } from "react";
 import { IdeaCard } from "@/components/idea-card";
 import { filterIdeas, type Sort } from "@/lib/filter-ideas";
-import type { Idea } from "@/lib/ideas";
+import type { IdeaSummary } from "@/lib/ideas";
 
-export function IdeaBoard({ ideas }: { ideas: Idea[] }) {
+export function IdeaBoard({ ideas }: { ideas: IdeaSummary[] }) {
   const [category, setCategory] = useState("");
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<Sort>("latest");

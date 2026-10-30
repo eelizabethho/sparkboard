@@ -22,7 +22,7 @@ export function OceanHero() {
         <div className="absolute h-[min(70vw,30rem)] w-[min(100vw,52rem)] rounded-full backdrop-blur-[6px] [background:radial-gradient(closest-side,color-mix(in_oklab,var(--background)_85%,transparent),transparent)] [mask-image:radial-gradient(closest-side,#000_45%,transparent)]" />
         <div className="relative flex flex-col items-center text-center">
           <h1 className="text-6xl font-semibold sm:text-8xl">Sparkboard</h1>
-          <p className="mt-3 text-lg text-muted-foreground sm:text-xl">AI ideas, from spark to shipped.</p>
+          <p className="mt-3 text-lg text-muted-foreground sm:text-xl">Thoughts on AI and everything new around it.</p>
         </div>
       </div>
       <a

@@ -7,6 +7,8 @@ export type Idea = {
   title: string;
   pitch: string;
   body: string;
+  /** BlockNote blocks; null for posts written before the block editor (render `body` markdown). */
+  content: unknown[] | null;
   status: "spark" | "exploring" | "building" | "shipped" | "shelved";
   category: string | null;
   tags: string[];
@@ -17,12 +19,16 @@ export type Idea = {
   updated_at: string;
 };
 
+// Card/list fields only: post bodies stay off the home page payload.
+const SUMMARY = "id, slug, title, pitch, status, category, tags, cover_url, is_private, created_at, updated_at";
+export type IdeaSummary = Omit<Idea, "body" | "content" | "links">;
+
 // Request-time (reads cookies): call inside <Suspense>. RLS filters private rows.
-export async function listIdeas(): Promise<Idea[]> {
+export async function listIdeas(): Promise<IdeaSummary[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("ideas")
-    .select("*")
+    .select(SUMMARY)
     .order("created_at", { ascending: false });
   if (error) throw error;
   return data;

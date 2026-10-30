@@ -48,6 +48,7 @@ export type IdeaInput = {
   title: string;
   pitch: string;
   body: string;
+  content: unknown[] | null;
   status: (typeof STATUSES)[number];
   category: string | null;
   tags: string[];
@@ -76,11 +77,15 @@ function parse(raw: unknown): { error: string } | { value: IdeaInput } {
   const cover = typeof r.cover_url === "string" && r.cover_url ? r.cover_url : null;
   if (cover && !isHttp(cover)) return { error: "Invalid cover URL." };
   const category = typeof r.category === "string" ? r.category.trim().slice(0, 60) : "";
+  const content = Array.isArray(r.content) ? r.content : null;
+  // Images are stored as URLs, so even long posts stay far below this; it guards the 1 MB action body cap.
+  if (content && JSON.stringify(content).length > 900_000) return { error: "Post is too long to save." };
   return {
     value: {
       title,
       pitch: typeof r.pitch === "string" ? r.pitch.trim().slice(0, 500) : "",
       body: typeof r.body === "string" ? r.body : "",
+      content,
       status: r.status as IdeaInput["status"],
       category: category || null,
       tags: [...new Set(strings(r.tags).map((t) => t.trim().toLowerCase()).filter(Boolean))],

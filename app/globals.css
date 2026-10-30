@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+/* BlockNote's shadcn UI ships Tailwind classes; let Tailwind see them. */
+@source "../node_modules/@blocknote/shadcn";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -168,3 +170,6 @@ h1, h2, h3 {
 .prose-idea hr { border-color: var(--border); }
 .prose-idea table { display: block; overflow-x: auto; border-collapse: collapse; }
 .prose-idea th, .prose-idea td { border: 1px solid var(--border); padding: 0.4em 0.8em; }
+
+/* Block editor sits on the page itself, not a white sheet (beats BlockNote's .bn-container.light/.dark). */
+.bn-root.bn-container.bn-shadcn { --bn-colors-editor-background: transparent; }

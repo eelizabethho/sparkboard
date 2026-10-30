@@ -9,7 +9,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Sparkboard",
-  description: "A board of AI ideas, from first spark to shipped.",
+  description: "Liz's thoughts on AI and everything new around it.",
   authors: [{ name: "Liz", url: "https://github.com/eelizabethho" }],
 };
 
