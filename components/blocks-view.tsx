@@ -142,8 +142,11 @@ function renderBlock(b: Block, key: number): ReactNode {
   const style: CSSProperties = { ...colorStyle(p.textColor, p.backgroundColor), textAlign: ALIGN[String(p.textAlignment)] };
   const inline = renderInline(Array.isArray(b.content) ? (b.content as Inline[]) : undefined);
   switch (b.type) {
-    case "paragraph":
-      return <div key={key}><p style={style}>{inline}</p><Children blocks={b.children} /></div>;
+    case "paragraph": {
+      // An empty paragraph is a blank line the writer left on purpose; <br> keeps it from collapsing.
+      const empty = !Array.isArray(b.content) || b.content.length === 0;
+      return <div key={key}><p style={style}>{empty ? <br /> : inline}</p><Children blocks={b.children} /></div>;
+    }
     case "heading": {
       const level = Math.min(6, Math.max(1, Number(p.level) || 1));
       const H = `h${level}` as "h1";

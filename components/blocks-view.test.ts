@@ -43,3 +43,10 @@ test("renders BlockNote JSON as safe HTML", () => {
   assert.ok(!html.includes("<script>"), "text is escaped");
   assert.ok(!html.includes("skip me"), "unknown blocks are skipped");
 });
+
+test("keeps blank lines the writer left between paragraphs", () => {
+  const html = renderToStaticMarkup(
+    createElement(BlocksView, { blocks: [{ type: "paragraph", content: [t("a")] }, { type: "paragraph", content: [] }, { type: "paragraph" }, { type: "paragraph", content: [t("b")] }] }),
+  );
+  assert.equal((html.match(/<p[^>]*><br\/><\/p>/g) ?? []).length, 2, "each empty paragraph keeps one line of height");
+});
