@@ -92,6 +92,9 @@ export function IdeaEditor({ idea, categories }: { idea?: Idea; categories: stri
   const [links, setLinks] = useState(idea?.links.join("\n") ?? "");
   const [isPrivate, setIsPrivate] = useState(idea?.is_private ?? true);
   const [coverUrl, setCoverUrl] = useState(idea?.cover_url ?? null);
+  const [coverY, setCoverY] = useState(idea?.cover_y ?? 50);
+  const [repositioning, setRepositioning] = useState(false);
+  const drag = useRef<{ y: number; start: number; range: number } | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [localUrl, setLocalUrl] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
@@ -106,7 +109,28 @@ export function IdeaEditor({ idea, categories }: { idea?: Idea; categories: stri
     if (localUrl) URL.revokeObjectURL(localUrl);
     setFile(f);
     setLocalUrl(f ? URL.createObjectURL(f) : null);
+    setCoverY(50);
   };
+
+  // Reposition: drag the cover vertically. The draggable range is how much taller the image is
+  // than its 16:9 frame (object-fit: cover); dragging down reveals more of the top.
+  function onCoverPointerDown(e: React.PointerEvent<HTMLImageElement>) {
+    if (!repositioning) return;
+    const img = e.currentTarget;
+    const rendered = (img.clientWidth * img.naturalHeight) / (img.naturalWidth || 1);
+    drag.current = { y: e.clientY, start: coverY, range: Math.max(1, rendered - img.clientHeight) };
+    img.setPointerCapture(e.pointerId);
+  }
+  function onCoverPointerMove(e: React.PointerEvent<HTMLImageElement>) {
+    const d = drag.current;
+    if (!d) return;
+    setCoverY(Math.round(Math.min(100, Math.max(0, d.start - ((e.clientY - d.y) / d.range) * 100))));
+  }
+  function onCoverKey(e: React.KeyboardEvent) {
+    if (!repositioning || (e.key !== "ArrowUp" && e.key !== "ArrowDown")) return;
+    e.preventDefault();
+    setCoverY((y) => Math.min(100, Math.max(0, y + (e.key === "ArrowUp" ? -5 : 5))));
+  }
 
   function onFile(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
@@ -156,6 +180,7 @@ export function IdeaEditor({ idea, categories }: { idea?: Idea; categories: stri
         tags: tags.split(","),
         links: links.split("\n"),
         cover_url,
+        cover_y: coverY,
         is_private: isPrivate,
       };
       const res = idea ? await updateIdea(idea.id, input) : await createIdea(input);
@@ -179,15 +204,45 @@ export function IdeaEditor({ idea, categories }: { idea?: Idea; categories: stri
       {shown ? (
         <div className="group relative">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={shown} alt="Cover" className="aspect-[3/1] w-full rounded-3xl object-cover" />
-          <div className="absolute right-3 bottom-3 flex gap-2 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100">
-            <label className="inline-flex h-9 cursor-pointer items-center gap-2 rounded-full bg-background/80 px-4 text-sm font-medium backdrop-blur-[20px]">
-              <ImagePlusIcon className="size-4" /> Change cover
-              <input ref={fileInput} type="file" accept="image/*" onChange={onFile} className="sr-only" />
-            </label>
-            <button type="button" onClick={removeCover} aria-label="Remove cover" className="inline-flex size-9 items-center justify-center rounded-full bg-background/80 backdrop-blur-[20px]">
-              <XIcon className="size-4" />
+          <img
+            src={shown}
+            alt={repositioning ? "Cover: drag up or down, or use the arrow keys, to choose what shows" : "Cover"}
+            draggable={false}
+            tabIndex={repositioning ? 0 : -1}
+            onPointerDown={onCoverPointerDown}
+            onPointerMove={onCoverPointerMove}
+            onPointerUp={() => (drag.current = null)}
+            onPointerCancel={() => (drag.current = null)}
+            onKeyDown={onCoverKey}
+            style={{ objectPosition: `center ${coverY}%` }}
+            className={`aspect-[16/9] w-full rounded-3xl object-cover ${repositioning ? "cursor-grab touch-none select-none outline-none ring-2 ring-primary active:cursor-grabbing" : ""}`}
+          />
+          {repositioning && (
+            <span className="pointer-events-none absolute top-3 left-1/2 -translate-x-1/2 rounded-full bg-background/80 px-3 py-1 text-xs backdrop-blur-[20px]">
+              Drag to reposition
+            </span>
+          )}
+          <div
+            className={`absolute right-3 bottom-3 flex gap-2 transition ${repositioning ? "" : "opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"}`}
+          >
+            <button
+              type="button"
+              onClick={() => setRepositioning((r) => !r)}
+              className="inline-flex h-9 items-center rounded-full bg-background/80 px-4 text-sm font-medium backdrop-blur-[20px]"
+            >
+              {repositioning ? "Done" : "Reposition"}
             </button>
+            {!repositioning && (
+              <>
+                <label className="inline-flex h-9 cursor-pointer items-center gap-2 rounded-full bg-background/80 px-4 text-sm font-medium backdrop-blur-[20px]">
+                  <ImagePlusIcon className="size-4" /> Change
+                  <input ref={fileInput} type="file" accept="image/*" onChange={onFile} className="sr-only" />
+                </label>
+                <button type="button" onClick={removeCover} aria-label="Remove cover" className="inline-flex size-9 items-center justify-center rounded-full bg-background/80 backdrop-blur-[20px]">
+                  <XIcon className="size-4" />
+                </button>
+              </>
+            )}
           </div>
         </div>
       ) : (

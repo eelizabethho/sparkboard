@@ -54,6 +54,7 @@ export type IdeaInput = {
   tags: string[];
   links: string[];
   cover_url: string | null;
+  cover_y: number;
   is_private: boolean;
 };
 export type ActionResult = { error: string } | undefined;
@@ -91,6 +92,7 @@ function parse(raw: unknown): { error: string } | { value: IdeaInput } {
       tags: [...new Set(strings(r.tags).map((t) => t.trim().toLowerCase()).filter(Boolean))],
       links: [...new Set(strings(r.links).map((l) => l.trim()).filter(isHttp))],
       cover_url: cover,
+      cover_y: Number.isFinite(r.cover_y) ? Math.round(Math.min(100, Math.max(0, r.cover_y as number))) : 50,
       is_private: r.is_private !== false,
     },
   };

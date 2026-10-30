@@ -6,7 +6,7 @@ import type { Idea } from "@/lib/ideas";
 
 export type IdeaCardData = Pick<
   Idea,
-  "slug" | "title" | "pitch" | "status" | "category" | "cover_url" | "is_private"
+  "slug" | "title" | "pitch" | "status" | "category" | "cover_url" | "cover_y" | "is_private"
 >;
 
 export function IdeaCard({ idea }: { idea: IdeaCardData }) {
@@ -17,6 +17,7 @@ export function IdeaCard({ idea }: { idea: IdeaCardData }) {
         <img
           src={idea.cover_url}
           alt={`Cover for ${idea.title}`}
+          style={{ objectPosition: `center ${idea.cover_y}%` }}
           className="aspect-[4/3] w-full object-cover"
         />
       ) : (

@@ -30,7 +30,12 @@ async function Detail({ params }: { params: PageProps<"/ideas/[slug]">["params"]
     <article className="mx-auto max-w-3xl">
       {idea.cover_url ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={idea.cover_url} alt={`Cover for ${idea.title}`} className="aspect-[16/9] w-full rounded-3xl object-cover" />
+        <img
+          src={idea.cover_url}
+          alt={`Cover for ${idea.title}`}
+          style={{ objectPosition: `center ${idea.cover_y}%` }}
+          className="aspect-[16/9] w-full rounded-3xl object-cover"
+        />
       ) : (
         <div aria-hidden className="aspect-[16/9] w-full rounded-3xl" style={{ background: gradientFor(idea.title) }} />
       )}

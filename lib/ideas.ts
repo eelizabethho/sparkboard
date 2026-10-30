@@ -14,13 +14,15 @@ export type Idea = {
   tags: string[];
   links: string[];
   cover_url: string | null;
+  /** Cover focal point, 0 (top) – 100 (bottom); used as object-position. */
+  cover_y: number;
   is_private: boolean;
   created_at: string;
   updated_at: string;
 };
 
 // Card/list fields only: post bodies stay off the home page payload.
-const SUMMARY = "id, slug, title, pitch, status, category, tags, cover_url, is_private, created_at, updated_at";
+const SUMMARY = "id, slug, title, pitch, status, category, tags, cover_url, cover_y, is_private, created_at, updated_at";
 export type IdeaSummary = Omit<Idea, "body" | "content" | "links">;
 
 // Request-time (reads cookies): call inside <Suspense>. RLS filters private rows.
