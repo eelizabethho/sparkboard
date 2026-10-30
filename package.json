@@ -44,5 +44,8 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "author": "Liz (https://github.com/eelizabethho)"
+  "author": "Liz (https://github.com/eelizabethho)",
+  "engines": {
+    "node": "22.x"
+  }
 }
